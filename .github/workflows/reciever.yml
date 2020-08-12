@@ -50,7 +50,7 @@ jobs:
         # The source repository path. Expected format {owner}/{repo}
         repository: advancedfx/advancedfx
         # A flag to choose between latest release and remaining releases
-        latest: true# optional, default is false
+        latest: true
         out-file-path: './v${{ env.LATEST_HLAE_TAG }}'
     
     # commit 提交改动
