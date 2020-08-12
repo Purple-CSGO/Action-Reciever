@@ -46,12 +46,14 @@ jobs:
 
     - name: release-downloader
       uses: robinraju/release-downloader@v1
+      env: 
+        DIR: './v${{ env.LATEST_HLAE_TAG }}'
       with:
         # The source repository path. Expected format {owner}/{repo}
         repository: advancedfx/advancedfx
         # A flag to choose between latest release and remaining releases
         latest: true
-        out-file-path: './v${{ env.LATEST_HLAE_TAG }}'
+        out-file-path: ${{ env.DIR }}
     
     # commit 提交改动
     - name: Git Auto Commit
