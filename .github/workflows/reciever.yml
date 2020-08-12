@@ -44,6 +44,9 @@ jobs:
     #    # The GitHub access token
     #    token: # optional, default is 
 
+    - name: create directory
+      run: mkdir ./v${{ env.LATEST_HLAE_TAG }}
+    
     - name: release-downloader
       uses: robinraju/release-downloader@v1
       env: 
