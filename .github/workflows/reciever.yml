@@ -16,7 +16,7 @@ jobs:
       uses: actions-hub/watch-tag@master
       with:
          provider: github
-         repository: advancedfx/advancedfx
+         repository: Purple-CSGO/Action-Sender
          env_name: LATEST_HLAE_TAG
     
     # 下载API文件
