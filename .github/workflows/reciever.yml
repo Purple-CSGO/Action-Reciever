@@ -23,11 +23,11 @@ jobs:
     - name: Download File To Workspace
       uses: carlosperate/download-file-action@v1.0.3
       with:
-      # URL of the file to download
-      file-url: https://api.github.com/repos/advancedfx/advancedfx/releases
-      # New filename to rename the downloaded file
-      file-name: release.json
-      #location: # optional, default is .
+        # URL of the file to download
+        file-url: https://api.github.com/repos/advancedfx/advancedfx/releases
+        # New filename to rename the downloaded file
+        file-name: release.json
+        #location: # optional, default is .
 
     ## 下载附件
     #- name: Download Release Asset
@@ -45,13 +45,13 @@ jobs:
     #    token: # optional, default is 
 
     - name: release-downloader
-    uses: robinraju/release-downloader@v1
-    with:
+      uses: robinraju/release-downloader@v1
+      with:
         # The source repository path. Expected format {owner}/{repo}
         repository: advancedfx/advancedfx
         # A flag to choose between latest release and remaining releases
         latest: true# optional, default is false
-        out-file-path: ./v${{ env.LATEST_HLAE_TAG }}
+        out-file-path: './v${{ env.LATEST_HLAE_TAG }}'
     
     # commit 提交改动
     - name: Git Auto Commit
