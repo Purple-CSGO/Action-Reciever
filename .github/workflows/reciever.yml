@@ -1,8 +1,8 @@
 name: Reciever of the release
 
 on:
-  schedule:
-  - cron: " * * * * *"
+  repository_dispatch:
+    types: [hlae_update_again]
 
 jobs:
   transport:
@@ -40,11 +40,15 @@ jobs:
         # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
         github_token: $\{{ secrets.GITHUB_TOKEN }}
     
-    # 等待60s 以防先发布再push
-    - name: Sleep for 60 seconds
+    - name: dir
+      run: |
+        ls -al
+        
+    # 等待30s 以防先发布再push
+    - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
       with:
-        time: '60s'
+        time: '30s'
 
   release:
     needs: transport
@@ -58,7 +62,11 @@ jobs:
           provider: github
           repository: advancedfx/advancedfx
           env_name: LATEST_HLAE_TAG
-        
+      
+      - name: dir
+        run: |
+          ls -al
+      
       # Release 发布
       - name: Create a Release
         uses: actions/create-release@v1
