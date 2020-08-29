@@ -2,7 +2,7 @@ name: Reciever of the release
 
 on:
   issues:
-    types: created
+    types: [created]
 
 jobs:
   transport:
