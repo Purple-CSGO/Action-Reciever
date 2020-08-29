@@ -36,6 +36,8 @@ jobs:
         commit-message: 'Automatically pushed by GitHub Actions'
         rebase: 'true' # pull abd rebase before commit
         force-add: 'true'
+        name: GitHub-Actions
+        email: noreply@email.com 
     
     - name: dir
       run: |
