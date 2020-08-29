@@ -28,11 +28,18 @@ jobs:
         ./repo-transporter
         ls -al
     
-    - name: Git Commit and Push
-      uses: github-actions-x/commit@v2.6
+    # commit 提交改动
+    - name: Git Auto Commit
+      uses: stefanzweifel/git-auto-commit-action@v4.4.0
       with:
-        # Github Token with commit access
-        github-token: $\{{ secrets.GITHUB_TOKEN }}
+        # Commit message
+        commit_message: "Git Auto Commit"
+
+    # Push 上传
+    - uses: ad-m/github-push-action@v0.6.0
+      with:
+        # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
+        github_token: $\{{ secrets.GITHUB_TOKEN }}
 
     - name: dir
       run: |
