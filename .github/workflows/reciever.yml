@@ -1,30 +1,21 @@
 name: Reciever of the release
 
 on:
-  repository_dispatch:
-    types: [hlae_update_again]
+  issues:
+    types: created
 
 jobs:
   transport:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
-    # 获取原仓库的版本
-    - name: Get Latest HLAE Tag
-      # ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-      uses: actions-hub/watch-tag@master
-      with:
-         provider: github
-         repository: Purple-CSGO/Action-Sender
-         env_name: LATEST_HLAE_TAG
-    
+
     # 下载API文件
     - name: Download File To Workspace
       uses: carlosperate/download-file-action@v1.0.3
       with:
         # URL of the file to download
-        file-url: https://api.github.com/repos/advancedfx/advancedfx/releases
+        file-url: https://api.github.com/repos/advancedfx/advancedfx/releases/latest
         # New filename to rename the downloaded file
         file-name: release.json
         #location: # optional, default is .
@@ -37,28 +28,12 @@ jobs:
         ./repo-transporter
         ls -al
     
-    # commit 提交改动
-    - name: Git Auto Commit
-      uses: stefanzweifel/git-auto-commit-action@v4.4.0
+    - name: Git Commit and Push
+      uses: github-actions-x/commit@v2.6
       with:
-        # Commit message
-        commit_message: "Git Auto Commit"
+        # Github Token with commit access
+        github-token: $\{{ secrets.GITHUB_TOKEN }}
 
-    # Push 上传
-    - uses: ad-m/github-push-action@v0.6.0
-      with:
-        # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
-        github_token: $\{{ secrets.GITHUB_TOKEN }}
-
-    # Release 发布
-    - name: Create a Release
-      uses: actions/create-release@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: 'v${{ env.LATEST_HLAE_TAG }}'
-      with:
-       tag_name: ${{ env.TAG }}
-       release_name: ${{ env.TAG }}
-       body: This release is automatically made by GitHub Actions
-       draft: false
-       prerelease: false
+    - name: dir
+      run: |
+        ls -al
