@@ -1,8 +1,8 @@
 name: Reciever of the release
 
 on:
-  issues:
-    types: [created]
+  schedule:
+  - cron: " * * * * *"
 
 jobs:
   transport:
