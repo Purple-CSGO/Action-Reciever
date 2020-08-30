@@ -36,8 +36,8 @@ jobs:
         commit-message: 'Automatically pushed by GitHub Actions'
         rebase: 'true' # pull abd rebase before commit
         force-add: 'true'
-        name: GitHub-Actions
-        email: noreply@email.com 
+        name: Purple-CSGO
+        email: 438518244@qq.com
     
     - name: dir
       run: |
