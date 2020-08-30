@@ -74,8 +74,6 @@ jobs:
         # A tag for the release. Required UNLESS action is run on tag push (meaning: '$GITHUB_REF' contains 'ref/tag/<TAG>').
     
         tag: ${{ env.TAG }}
-        # Unnecessary, if the tag provided is a git tag. If it isn't, release will be created off 'master'.
-        commitish: # optional
         # Name the release, the more creative, the better.
         name: ${{ env.TAG }}
         # Longer description of the release, ex. changelog, or info about contributors.
