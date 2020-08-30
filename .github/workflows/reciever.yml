@@ -67,6 +67,23 @@ jobs:
       # uses: meeDamian/github-release@7ae19492500104f636b3fee4d8103af0fed36c8e
       uses: meeDamian/github-release@v2.0.3
       env:
+        TAG: 'fake${{ env.LATEST_HLAE_TAG }}'
+      with:
+        # Github API token to be used. Quite unavoidable, I'm afraid.
+        token:  ${{ secrets.GITHUB_TOKEN }}
+        # A tag for the release. Required UNLESS action is run on tag push (meaning: '$GITHUB_REF' contains 'ref/tag/<TAG>').
+    
+        tag: ${{ env.TAG }}
+        # Name the release, the more creative, the better.
+        name: ${{ env.TAG }}
+        # Longer description of the release, ex. changelog, or info about contributors.
+        body: Fake test
+        
+    - name: Github Release create, update, and upload assets
+      # You may pin to the exact commit or the version.
+      # uses: meeDamian/github-release@7ae19492500104f636b3fee4d8103af0fed36c8e
+      uses: meeDamian/github-release@v2.0.3
+      env:
         TAG: 'v${{ env.LATEST_HLAE_TAG }}'
       with:
         # Github API token to be used. Quite unavoidable, I'm afraid.
@@ -78,3 +95,4 @@ jobs:
         name: ${{ env.TAG }}
         # Longer description of the release, ex. changelog, or info about contributors.
         body: This release is automatically made by GitHub Actions
+
