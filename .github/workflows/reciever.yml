@@ -10,6 +10,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    # 获取原仓库的版本
+    - name: Get Latest HLAE Tag
+      uses: actions-hub/watch-tag@master
+      with:
+         provider: github
+         repository: advancedfx/advancedfx
+         env_name: LATEST_HLAE_TAG
+    
+    # 获取当前仓库的版本
+    - name: Get Latest HLAE-Release Tag
+      uses: actions-hub/watch-tag@master
+      with:
+         provider: github
+         repository: Purple-CSGO/Action-Reciever
+         env_name: THIS_TAG
+    
     # 下载API文件
     - name: Download File To Workspace
       uses: carlosperate/download-file-action@v1.0.3
@@ -43,26 +59,16 @@ jobs:
       run: |
         ls -al
         
-    # 等待30s 以防先发布再push
-    - name: Sleep for 30 seconds
+    # 等待10s 以防先发布再push
+    - if: env.THIS_TAG != env.LATEST_HLAE_TAG
+      name: Sleep for 10 seconds
       uses: jakejarvis/wait-action@master
       with:
-        time: '30s'
+        time: '10s'
 
-    # 获取原仓库的版本
-    - name: Get Latest HLAE Tag
-    # ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-      uses: actions-hub/watch-tag@master
-      with:
-        provider: github
-        repository: advancedfx/advancedfx
-        env_name: LATEST_HLAE_TAG
-    
-    - name: dir
-      run: |
-        ls -al
-    
-    - name: Github Release create, update, and upload assets
+    # 运行工具
+    - if: env.THIS_TAG != env.LATEST_HLAE_TAG
+      name: Github Release create, update, and upload assets
       # You may pin to the exact commit or the version.
       # uses: meeDamian/github-release@7ae19492500104f636b3fee4d8103af0fed36c8e
       uses: meeDamian/github-release@v2.0.3
